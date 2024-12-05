@@ -1,0 +1,33 @@
+version: '3'
+services:
+  tashliyah-backend:
+    image: node:latest
+    container_name: tashliyah-backend
+    working_dir: /src
+    volumes:
+      - .:/src
+    ports:
+      - "3000:3000" 
+    environment:
+      NODE_ENV: development
+      PORT: 3000 
+      DATABASE_URL: "sqlite://db.sqlite3" 
+    command: npm start
+    depends_on:
+      - database 
+    networks:
+      - backend-network
+
+  database:
+    image: sqlite:latest 
+    container_name: tashliyah-db
+    volumes:
+      - db-data:/var/lib/sqlite
+    networks:
+      - backend-network
+      
+networks:
+  backend-network:
+
+volumes:
+  db-data:

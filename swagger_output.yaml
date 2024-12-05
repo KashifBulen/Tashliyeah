@@ -1,0 +1,884 @@
+swagger: '2.0'
+info:
+  title: Tashliyah
+  version: 0.0.1
+  description: tashliyah
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT.html
+  contact:
+    name: Junaid Darajat
+    url: https://tashliyeah.com
+    email: junaid_darajat@hotmail.com
+host: localhost:3000
+servers:
+  - url: http://localhost:3000
+basePath: /
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+
+  /vendor/send-otp:
+    post:
+      tags:
+        - Vendor
+      summary: Send OTP
+      description: Endpoint for sending OTP to Vendor's email.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              otp:
+                type: number
+                  
+  /vendor/signup:
+    post:
+      tags:
+        - Vendor
+      summary: Vendor Signup
+      description: Endpoint for Vendor registration.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Vendor'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Vendor'
+
+  /vendor/verify-otp:
+    post:
+      tags:
+        - Vendor
+      summary: Verify OTP
+      description: Endpoint for verifying OTP.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              otp:
+                type: string
+              email:
+                type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Server Error
+          
+  /vendor/login:
+    post:
+      tags:
+        - Vendor
+      summary: Vendor Login
+      description: Endpoint for Vendor login.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+              password:
+                type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Server Error
+          
+  /vendor/forgotPassword:
+    post:
+      tags:
+        - Vendor
+      summary: Vendor Login
+      description: Endpoint for vendor login.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+              password:
+                type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Server Error
+
+
+  /vendor/resetPassword:
+    post:
+      tags:
+        - Vendor
+      summary: Vendor Login
+      description: Endpoint for vendor login.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+              password:
+                type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Server Error
+
+
+
+  /vendor/:
+    get:
+      tags:
+        - Vendor
+      summary: Get Vendor by ID
+      description: Retrieve user details by user ID.
+      parameters:
+        - name: Authorization
+          in: header
+          description: JWT token to authorize the request
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Vendor'
+        '404':
+           description: Unauthorized - Invalid or missing token
+           
+  /vendor/profile:
+    put:
+      tags:
+        - Vendor
+      summary: Update Vendor Profile
+      description: Update user profile data.
+      parameters:
+      - name: Authorization
+        in: header
+        description: JWT token to authorize the request
+        required: true
+        type: string
+      - name: body
+        in: body
+        required: true
+        schema:
+            $ref: '#/definitions/Vendor'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              user:
+                $ref: '#/definitions/Vendor'
+        '404':
+            description: Unauthorized - Invalid or missing token
+            
+  /vendor/logout:
+    get:
+      tags:
+        - Vendor
+      summary: Get Vendor by ID
+      description: Retrieve Vendor details by Vendor ID.
+      parameters:
+        - name: Authorization
+          in: header
+          description: JWT token to authorize the request
+          required: true
+          type: string
+      responses:
+        '200':
+          description: logout successfully... 
+          
+        '404':
+           description: Unauthorized - Invalid or missing token
+           
+
+
+  /customer/send-otp:
+    post:
+      tags:
+        - Customer
+      summary: Send OTP
+      description: Endpoint for sending OTP to customer's email.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              otp:
+                type: number
+                  
+  /customer/signup:
+    post:
+      tags:
+        - Customer
+      summary: customer Signup
+      description: Endpoint for customer registration.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Customer'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Customer'
+
+  /customer/verify-otp:
+    post:
+      tags:
+        - Customer
+      summary: Verify OTP
+      description: Endpoint for verifying OTP.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              otp:
+                type: string
+              email:
+                type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Server Error
+          
+  /customer/login:
+    post:
+      tags:
+        - Customer
+      summary: Customer Login
+      description: Endpoint for Customer login.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+              password:
+                type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Server Error
+          
+          
+  /customer/forgotPassword:
+    post:
+      tags:
+        - Customer
+      summary: Customer Login
+      description: Endpoint for Customer login.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+              password:
+                type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Server Error
+
+
+  /customer/resetPassword:
+    post:
+      tags:
+        - Customer
+      summary: Customer Login
+      description: Endpoint for Customer login.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+              password:
+                type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Server Error        
+  
+  
+          
+  /customer/:
+    get:
+      tags:
+        - Customer
+      summary: Get customer by ID
+      description: Retrieve customer details by customer ID.
+      parameters:
+        - name: Authorization
+          in: header
+          description: JWT token to authorize the request
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Customer'
+        '404':
+           description: Unauthorized - Invalid or missing token
+           
+  /customer/profile:
+    put:
+      tags:
+        - Customer
+      summary: Update customer Profile
+      description: Update Customer profile data.
+      parameters:
+      - name: Authorization
+        in: header
+        description: JWT token to authorize the request
+        required: true
+        type: string
+      - name: body
+        in: body
+        required: true
+        schema:
+            $ref: '#/definitions/Customer'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              user:
+                $ref: '#/definitions/Customer'
+        '404':
+            description: Unauthorized - Invalid or missing token
+
+  /customer/logout:
+    get:
+      tags:
+        - Customer
+      summary: Get customer by ID
+      description: Retrieve Customer details by customer ID.
+      parameters:
+        - name: Authorization
+          in: header
+          description: JWT token to authorize the request
+          required: true
+          type: string
+      responses:
+        '200':
+          description: logout successfully... 
+          
+        '404':
+           description: Unauthorized - Invalid or missing token
+
+  /vehicle/:
+    get:
+      tags:
+        - Vehicles
+      summary: Retrieve all vehicles
+      description: Endpoint for retrieving all vehicles.
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              vehicles:
+                type: array
+                items:
+                  $ref: '#/definitions/Vehicle'
+        '500':
+          description: Server Error
+          
+  /vehicle/create:
+    post:
+      tags:
+        - Vehicles
+      summary: Create a new vehicle
+      description: Endpoint for creating a new vehicle.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Vehicle'
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/Vehicle'
+        '400':
+          description: Bad Request
+        '500':
+          description: Server Error
+
+  /part/create:
+    post:
+      tags:
+        - Parts
+      summary: Create a new part
+      description: Endpoint for creating a new part.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Part'
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/Part'
+        '400':
+          description: Bad Request
+        '500':
+          description: Server Error
+
+  /part/:
+      get:
+        tags:
+          - Parts
+        summary: Retrieve all Parts
+        description: Endpoint for retrieving all Parts.
+        parameters:
+        - name: Authorization
+          in: header
+          description: JWT token to authorize the request
+          required: true
+          type: string
+        responses:
+          '200':
+            description: OK
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                vehicles:
+                  type: array
+                  items:
+                    $ref: '#/definitions/Part'
+          '500':
+            description: Server Error
+
+
+  /request/:
+      get:
+        tags:
+          - Request
+        summary: Retrieve all request
+        description: Endpoint for retrieving all request.
+        parameters:
+        - name: Authorization
+          in: header
+          description: JWT token to authorize the request
+          required: true
+          type: string
+        responses:
+          '200':
+            description: OK
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                vehicles:
+                  type: array
+                  items:
+                    $ref: '#/definitions/Requests'
+          '500':
+            description: Server Error
+
+  /request/getVendorRequests:
+  z    get:
+        tags:
+          - Request
+        summary: Retrieve all request
+        description: Endpoint for retrieving all request.
+        parameters:
+        - name: Authorization
+          in: header
+          description: JWT token to authorize the request
+          required: true
+          type: string
+        responses:
+          '200':
+            description: OK
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                vehicles:
+                  type: array
+                  items:
+                    $ref: '#/definitions/Part'
+          '500':
+            description: Server Error
+            
+  /request/getAuction/:id:
+      get:
+        tags:
+          - Request
+        summary: Retrieve all request
+        description: Endpoint for retrieving all request.
+        parameters:
+        - name: Authorization
+          in: header
+          description: JWT token to authorize the request
+          required: true
+          type: string
+        - name: id
+          in: query
+          description: provide requestId
+          required: true
+          type: string
+        responses:
+          '200':
+            description: OK
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                vehicles:
+                  type: array
+                  items:
+                    $ref: '#/definitions/Part'
+          '500':
+            description: Server Error
+
+  /request/getCustomerRequests/:id:
+      get:
+        tags:
+          - Request
+        summary: Retrieve all request
+        description: Endpoint for retrieving all request.
+        parameters:
+        - name: Authorization
+          in: header
+          description: JWT token to authorize the request
+          required: true
+          type: string
+        responses:
+          '200':
+            description: OK
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                vehicles:
+                  type: array
+                  items:
+                    $ref: '#/definitions/Part'
+          '500':
+            description: Server Error
+            
+  /request/getAllRequests:
+      get:
+        tags:
+          - Request
+        summary: Retrieve all request
+        description: Endpoint for retrieving all request.
+        parameters:
+        - name: Authorization
+          in: header
+          description: JWT token to authorize the request
+          required: true
+          type: string
+        responses:
+          '200':
+            description: OK
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                vehicles:
+                  type: array
+                  items:
+                    $ref: '#/definitions/Part'
+          '500':
+            description: Server Error
+            
+
+  /order/create/:id:
+      get:
+        tags:
+          - Order
+        summary: Create Order
+        description: Endpoint for retrieving all Order.
+        parameters:
+        - name: Authorization
+          in: header
+          description: JWT token to authorize the Order
+          required: true
+          type: string
+        - name: id
+          in: query
+          description: provide BidId
+          required: true
+          type: string
+        responses:
+          '200':
+            description: OK
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                vehicles:
+                  type: array
+                  items:
+                    $ref: '#/definitions/Order'
+          '500':
+            description: Server Error
+                      
+
+
+
+definitions:
+  Customer:
+    type: object
+    properties:
+      image:
+        type: string
+      name:
+        type: string
+      car:
+        type: string
+      email:
+        type: string
+      number:
+        type: string
+      callingCode:
+        type: string
+      driverLicense:
+        type: string
+      role:
+        type: string
+   
+  
+  
+  Vendor:
+    type: object
+    properties:
+      image:
+        type: string
+      name:
+        type: string
+      email:
+        type: string
+      number:
+        type: string
+      callingCode:
+        type: string
+      role:
+        type: string
+      shopName:
+        type: string
+      shopLocation:
+        type: string
+      commercialLicense:
+        type: string
+      attachShopPic:
+        type: string
+  
+  
+  
+  Vehicle:
+    type: object
+    properties:
+      id:
+        type: string
+      make:
+        type: string
+      model:
+        type: string
+      year:
+        type: integer
+      transmission:
+        type: integer
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+
+  Part:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      origin:
+        type: string
+      price:
+        type: number
+      vehicleId:
+        type: string
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+  
+  Requests:
+    type: object
+    properties:
+      id:
+        type: string
+      make:
+        type: string
+      model:
+        type: string
+      year:
+        type: number
+      partName:
+        type: string
+      partOrigin:
+        type: string
+      message:
+        type: string
+      askingPrice:
+        type: number
+      customerId:
+        type: string
+      biddingStatus:
+        type: boolean
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+        
+        
+  Order:
+    type: object
+    properties:
+      id:
+        type: string
+      customerId:
+        type: string
+      acceptedBidId:
+        type: string
+      sparePartId:
+        type: number
+      locationId:
+        type: string
+      paymentMethod:
+        type: string
+      shippingType:
+        type: string
+      status:
+        type: boolean
+      orderLocation:
+        type: string
+      address:
+        type: string
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+   
+
