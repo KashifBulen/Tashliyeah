@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/Kora-Studios/tashliyah-backend.git",
-  "author": "noman <numansafi97@gmail.com>",
+  "author": "abc <abc@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "nodemon --exec ts-node src/index.ts",
