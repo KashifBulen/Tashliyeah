@@ -7,9 +7,9 @@ info:
     name: MIT
     url: https://spdx.org/licenses/MIT.html
   contact:
-    name: Junaid Darajat
+    name: Jun
     url: https://tashliyeah.com
-    email: junaid_darajat@hotmail.com
+    email: jun@hotmail.com
 host: localhost:3000
 servers:
   - url: http://localhost:3000
